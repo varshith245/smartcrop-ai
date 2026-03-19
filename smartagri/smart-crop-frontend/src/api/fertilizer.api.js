@@ -1,0 +1,21 @@
+// src/api/fertilizer.api.js
+
+import axios from "axios";
+
+const API = axios.create({
+  baseURL: "http://localhost:8080/api/fertilizer",
+});
+
+API.interceptors.request.use((req) => {
+  req.headers.Authorization =
+    `Bearer ${localStorage.getItem("token")}`;
+  return req;
+});
+
+// Recommend fertilizer
+export const recommendFertilizer = (data) =>
+  API.post("/recommend", data);
+
+// Get all fertilizers
+export const getAllFertilizers = () =>
+  API.get("/all");
